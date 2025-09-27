@@ -1,4 +1,6 @@
-import SignInCard from "@/features/auth/component/sign-in-card";
+"use client";
+
+import { SignInCard } from "@/features/auth/component/sign-in-card";
 import React from "react";
 
 const SignInPage = () => {
