@@ -21,19 +21,15 @@ import {
 import Link from "next/link";
 
 // ✅ Schema definition
-const signInSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .max(64, "Password must not exceed 64 characters"),
-});
+import { loginSchema } from "../schemas";
+import { useLogin } from "../api/use-login";
 
-type SignInFormValues = z.infer<typeof signInSchema>;
+type SignInFormValues = z.infer<typeof loginSchema>;
 
 export const SignInCard: React.FC = () => {
+  const { mutate } = useLogin();
   const form = useForm<SignInFormValues>({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -42,8 +38,9 @@ export const SignInCard: React.FC = () => {
   });
 
   const handleSubmit = (values: SignInFormValues) => {
-    console.log("Form Values:", values);
+    // console.log("Form Values:", values);
     // TODO: Replace with actual API call
+    mutate(values);
   };
 
   return (
