@@ -27,19 +27,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 // ✅ Define schema
-const formSchema = z.object({
-  name: z.string().trim().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Minimum of 8 characters"),
-});
+import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 // ✅ Type inference from schema
-type SignUpFormValues = z.infer<typeof formSchema>;
+type SignUpFormValues = z.infer<typeof registerSchema>;
 
 export const SignUpCard = () => {
+  const { mutate } = useRegister();
   // ✅ Setup react-hook-form with Zod resolver
   const form = useForm<SignUpFormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -49,8 +47,9 @@ export const SignUpCard = () => {
 
   // ✅ Handle form submission
   const onSubmit = (values: SignUpFormValues) => {
-    console.log("Form submitted:", values);
+    // console.log("Form submitted:", values);
     // Here you can call your API or mutation
+    mutate(values);
   };
 
   return (
