@@ -18,6 +18,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import Link from "next/link";
 
 // ✅ Schema definition
 const signInSchema = z.object({
@@ -129,6 +130,17 @@ export const SignInCard: React.FC = () => {
           <FaGithub className="mr-2 size-5" />
           Continue with GitHub
         </Button>
+      </CardContent>
+      <div className="px-7">
+        <DottedSaparator />
+      </div>
+      <CardContent className="p-7 flex items-center justify-center ">
+        <p>
+          Don&apos;t Have an Account
+          <Link href="/sign-up">
+            <span className="text-blue-700">&nbsp;Sign Up</span>
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
